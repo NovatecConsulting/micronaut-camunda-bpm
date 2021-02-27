@@ -74,17 +74,6 @@ public class CamundaServicesFactory {
     }
 
     /**
-     * Creates a bean for the {@link CaseService} in the application context which can be injected if needed.
-     *
-     * @param processEngine the {@link ProcessEngine}
-     * @return the {@link CaseService}
-     */
-    @Singleton
-    public CaseService caseService(ProcessEngine processEngine) {
-        return processEngine.getCaseService();
-    }
-
-    /**
      * Creates a bean for the {@link DecisionService} in the application context which can be injected if needed.
      *
      * @param processEngine the {@link ProcessEngine}

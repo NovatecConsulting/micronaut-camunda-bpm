@@ -22,7 +22,9 @@ micronaut {
 dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut:micronaut-runtime")
-    api("org.camunda.bpm:camunda-engine:$camundaVersion")
+    api("org.camunda.bpm:camunda-engine:$camundaVersion") {
+        exclude group: 'org.camunda.bpm.model', module: 'camunda-cmmn-model'
+    }
 
     compileOnly("io.micronaut.servlet:micronaut-servlet-engine")
     compileOnly("io.micronaut:micronaut-http-server-netty")

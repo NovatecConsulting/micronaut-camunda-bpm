@@ -64,6 +64,7 @@ public class DefaultPropertySourceLoader implements PropertySourceLoader, Ordere
                         new HashMap<String, Object>() {{
                             put("datasources.default.maximum-pool-size", MAXIMUM_POOL_SIZE);
                             put("datasources.default.minimum-idle", MINIMUM_POOL_SIZE);
+                            put("camunda.generic-properties.properties.cmmn-enabled", false);
                         }}));
     }
 

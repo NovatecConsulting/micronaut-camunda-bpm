@@ -26,23 +26,34 @@ import io.micronaut.jdbc.BasicJdbcConfiguration;
 import io.micronaut.transaction.SynchronousTransactionManager;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
+import org.camunda.bpm.engine.history.*;
+import org.camunda.bpm.engine.impl.*;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.camunda.bpm.engine.impl.cmmn.CaseServiceImpl;
+import org.camunda.bpm.engine.impl.cmmn.entity.repository.CaseDefinitionQueryImpl;
+import org.camunda.bpm.engine.impl.cmmn.entity.runtime.CaseExecutionQueryImpl;
+import org.camunda.bpm.engine.impl.cmmn.entity.runtime.CaseInstanceQueryImpl;
 import org.camunda.bpm.engine.impl.interceptor.*;
+import org.camunda.bpm.engine.repository.CaseDefinition;
+import org.camunda.bpm.engine.repository.CaseDefinitionQuery;
+import org.camunda.bpm.engine.runtime.CaseExecution;
+import org.camunda.bpm.engine.runtime.CaseExecutionQuery;
+import org.camunda.bpm.engine.runtime.CaseInstance;
+import org.camunda.bpm.engine.runtime.CaseInstanceQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import javax.sql.DataSource;
+import java.io.*;
 import java.sql.Connection;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.micronaut.transaction.TransactionDefinition.Propagation.REQUIRED;
 import static io.micronaut.transaction.TransactionDefinition.Propagation.REQUIRES_NEW;
+import static java.util.Collections.*;
 
 /**
  * Micronaut implementation of {@link org.camunda.bpm.engine.ProcessEngineConfiguration} which is aware of transaction
@@ -93,6 +104,7 @@ public class MnProcessEngineConfiguration extends ProcessEngineConfigurationImpl
         this.camundaVersion = camundaVersion;
         this.basicJdbcConfiguration = basicJdbcConfiguration;
         checkForDeprecatedConfiguration();
+        mockUnsupportedCmmnMethods();
         setDataSource(dataSource);
         setTransactionsExternallyManaged(true);
         setExpressionManager(new MnExpressionManager(new ApplicationContextElResolver(applicationContext)));
@@ -141,6 +153,26 @@ public class MnProcessEngineConfiguration extends ProcessEngineConfigurationImpl
     }
 
     @Override
+    protected InputStream getMyBatisXmlConfigurationSteam() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(super.getMyBatisXmlConfigurationSteam()));
+        try {
+            StringBuilder sb = new StringBuilder();
+            while (reader.ready()) {
+                String line = reader.readLine();
+                if (!line.contains("<mapper resource=\"org/camunda/bpm/engine/impl/mapping/entity/Case")) {
+                    sb.append(line);
+                    sb.append("\n");
+                } else {
+                    log.debug("Filtered out CMMN mapping {}", line);
+                }
+            }
+            return new ByteArrayInputStream(sb.toString().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     protected Collection<? extends CommandInterceptor> getDefaultCommandInterceptorsTxRequired() {
         return getCommandInterceptors(false);
     }
@@ -166,6 +198,121 @@ public class MnProcessEngineConfiguration extends ProcessEngineConfigurationImpl
             log.error(msg);
             throw new IllegalArgumentException(msg);
         }
+    }
+
+    /**
+     * Mocks methods which must work although we removed all references to CMMN.
+     */
+    protected void mockUnsupportedCmmnMethods() {
+        repositoryService = new RepositoryServiceImpl() {
+            @Override
+            public CaseDefinitionQuery createCaseDefinitionQuery() {
+                return new CaseDefinitionQueryImpl(commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        // This method is called by the Cockpit's start page
+                        return 0;
+                    }
+
+                    @Override
+                    public List<CaseDefinition> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+        };
+        caseService = new CaseServiceImpl() {
+            @Override
+            public CaseInstanceQuery createCaseInstanceQuery() {
+                return new CaseInstanceQueryImpl(commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        return 0;
+                    }
+
+                    @Override
+                    public List<CaseInstance> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+
+            @Override
+            public CaseExecutionQuery createCaseExecutionQuery() {
+                return new CaseExecutionQueryImpl(commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        return 0;
+                    }
+
+                    @Override
+                    public List<CaseExecution> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+        };
+        historyService = new HistoryServiceImpl() {
+            @Override
+            public HistoricCaseInstanceQuery createHistoricCaseInstanceQuery() {
+                return new HistoricCaseInstanceQueryImpl(commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        return 0;
+                    }
+
+                    @Override
+                    public List<HistoricCaseInstance> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+
+            @Override
+            public HistoricCaseActivityInstanceQuery createHistoricCaseActivityInstanceQuery() {
+                return new HistoricCaseActivityInstanceQueryImpl(commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        return 0;
+                    }
+
+                    @Override
+                    public List<HistoricCaseActivityInstance> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+
+            @Override
+            public HistoricCaseActivityStatisticsQuery createHistoricCaseActivityStatisticsQuery(String caseDefinitionId) {
+                return new HistoricCaseActivityStatisticsQueryImpl(caseDefinitionId, commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        return 0;
+                    }
+
+                    @Override
+                    public List<HistoricCaseActivityStatistics> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+
+            @Override
+            public CleanableHistoricCaseInstanceReport createCleanableHistoricCaseInstanceReport() {
+                return new CleanableHistoricCaseInstanceReportImpl(commandExecutor) {
+                    @Override
+                    public long executeCount(CommandContext commandContext) {
+                        return 0;
+                    }
+
+                    @Override
+                    public List<CleanableHistoricCaseInstanceReportResult> executeList(CommandContext commandContext, Page page) {
+                        return emptyList();
+                    }
+                };
+            }
+        };
     }
 
     /**
