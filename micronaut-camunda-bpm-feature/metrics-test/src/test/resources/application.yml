@@ -1,11 +1,8 @@
 micronaut:
   application:
-    name: micronaut-camunda-example
+    name: metrics-test
   metrics:
     export:
-      logging:
-        step: PT1M
-        enabled: true
       prometheus:
         enabled: true
         step: PT1M
@@ -23,18 +20,3 @@ micronaut:
 endpoints:
   prometheus:
     sensitive: false
-camunda:
-  locations:
-    - classpath:bpm
-  admin-user:
-    id: admin
-    password: admin
-  generic-properties:
-    properties:
-      initialize-telemetry: true
-  webapps:
-    enabled: true
-  rest:
-    enabled: true
-  filter:
-    create: "All tasks"

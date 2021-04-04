@@ -1,0 +1,61 @@
+plugins {
+    id("io.micronaut.application")
+    id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.allopen")
+}
+
+micronaut {
+    runtime("jetty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("micronaut.camunda.bpm.feature.metrics.test.*")
+    }
+}
+
+dependencies {
+    testImplementation(project(":micronaut-camunda-bpm-feature"))
+    testRuntimeOnly("com.h2database:h2")
+    testRuntimeOnly("ch.qos.logback:logback-classic")
+
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest("io.micronaut.data:micronaut-data-processor")
+    kaptTest("io.micronaut:micronaut-inject-java:$micronautVersion")
+
+    testCompileOnly("io.micronaut.servlet:micronaut-http-server-jetty")
+    testImplementation("org.assertj:assertj-core:3.19.0")
+    testImplementation("net.javacrumbs.json-unit:json-unit-assertj:2.25.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+
+
+    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.eclipse.jetty:jetty-server:$jettyVersion")
+    testImplementation("org.eclipse.jetty:jetty-servlet:$jettyVersion")
+
+    // imported to enable metrics
+    testImplementation("io.micronaut:micronaut-management")
+
+    // imported to enable metrics
+    // comes also with micronaut-micrometer-registry-prometheus, it's here just to make the example more verbose
+    testImplementation("io.micronaut.micrometer:micronaut-micrometer-core")
+
+    // just added to export metrics to prometheus
+    testImplementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
+}
+
+application {
+    mainClass.set("info.novatec.micronaut.camunda.bpm.feature.metrics.test.Application")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("1.8")
+}
+
+tasks {
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}

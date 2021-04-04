@@ -24,6 +24,7 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     api("org.camunda.bpm:camunda-engine:$camundaVersion")
 
+    compileOnly("io.micronaut.micrometer:micronaut-micrometer-core")
     compileOnly("io.micronaut.servlet:micronaut-servlet-engine")
     compileOnly("io.micronaut:micronaut-http-server-netty")
     compileOnly("io.micronaut.servlet:micronaut-http-server-jetty")
@@ -57,11 +58,14 @@ dependencies {
     // Test
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testImplementation("org.assertj:assertj-core")
+    testImplementation("org.camunda.bpm.assert:camunda-bpm-assert:8.0.0")
     testImplementation("org.mockito:mockito-core:3.8.0")
     testImplementation("ch.qos.logback:logback-classic")
+    testImplementation("io.micronaut.micrometer:micronaut-micrometer-core") // imported to test availability of bean MeterRegistry
     testRuntimeOnly("com.h2database:h2")
     testRuntimeOnly("io.micronaut:micronaut-http-server-netty")
     testRuntimeOnly("org.codehaus.groovy:groovy-all:3.0.7") // as script engine
+    testRuntimeOnly("io.micronaut:micronaut-management") // imported to enable metrics
 }
 
 java {

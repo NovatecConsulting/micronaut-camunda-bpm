@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./src/test/resources/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - '9090:9090'
+    network_mode: host
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    network_mode: host
+    user: $UID:$GID
+    volumes:
+      - ./src/test/resources/grafana/:/etc/grafana/provisioning/

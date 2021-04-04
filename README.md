@@ -45,6 +45,7 @@ Micronaut + Camunda = :heart:
   * [Transaction Management](#transaction-management)
   * [Process Tests](#process-tests)
   * [Docker](#docker)
+  * [Camunda Metrics](#camunda-metrics) 
   * [Pitfalls](#pitfalls)
 * 📚 [Releases](#releases)
 * 📨 [Contact](#contact)
@@ -680,6 +681,63 @@ Build the Docker image:
 Run the Docker image:
 
 `docker run -p 8080:8080 <IMAGE>`
+
+## Camunda Metrics
+
+To export Camunda Metrics via micronaut-micrometer you need to add the dependency and enable it __explicitly__ in your `application.yml`.
+
+We currently support all Camunda Build-In Metrics. See [Process Engine / Metrics](https://docs.camunda.org/manual/latest/user-guide/process-engine/metrics/)
+
+<details>
+<summary>Click to show Gradle dependencies</summary>
+
+```groovy
+implementation("io.micronaut.micrometer:micronaut-micrometer-core")
+
+// optional enable http endpoint for metrics
+implementation("io.micronaut:micronaut-management")
+```
+</details>
+
+<details>
+<summary>Click to show Maven dependencies</summary>
+
+```xml
+<dependency>
+  <groupId>io.micronaut.micrometer</groupId>
+  <artifactId>micronaut-micrometer-core</artifactId>
+</dependency>
+
+<!-- optional enable http endpoint for metrics -->
+<dependency>
+  <groupId>io.micronaut</groupId>
+  <artifactId>micronaut-management</artifactId>
+</dependency>
+```
+</details>
+
+<details>
+<summary>Click to show configuration</summary>
+
+```yaml
+micronaut:
+  metrics:
+    binders:
+      camunda:
+        bpmnExecution:
+          enabled: true
+        dmnExecution:
+          enabled: true
+        jobExecutor:
+          enabled: true
+        historyCleanUp:
+          enabled: true
+```
+</details>
+
+Be aware that `camunda.generic-properties.properties.metricsEnabled=false` overrules all other settings. In this case no metrics are enabled.
+
+One note about performance: Take into consideration the execution times of your metric collectors. Each metric collector is run as a standalone timer thread execution, but the more collectors you add, and the large the data processing and/or database query time/load the collector uses per execution, it can create large performance impacts on the engine.
 
 ## Pitfalls
 

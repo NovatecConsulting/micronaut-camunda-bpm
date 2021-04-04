@@ -59,3 +59,24 @@ the data source's URL:
 `datasources.default.url: jdbc:h2:file:~/micronautdb;DB_CLOSE_ON_EXIT=FALSE`
 
 To reset the database simply delete the `micronautdb*` files in your home directory.
+
+## Monitoring
+
+By default, the example app will print the metrics every minute to console. To disable this open `src/main/resources/application.yml`
+and change `micronaut.metrics.export.logging.enabled` to `false`
+
+![Camunda Metrics Console](CamundaMetrics-Console.png)
+
+The app comes also with an prometheus endpoint. To see prometheus and grafana in action open a shell
+
+![Camunda Metrics](CamundaMetrics-Grafana.png)
+
+```shell
+export UID=$(id -u)
+export GID=$(id -g)
+docker-compose up
+```
+
+Open [grafana](http://localhost:3000/) in your browser. Username and Password is `admin`.
+
+We added 2 Dashboards. One for JVM Metrics and one for all camunda build-in metrics.

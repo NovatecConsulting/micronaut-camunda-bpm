@@ -15,6 +15,18 @@ micronaut {
 
 dependencies {
     implementation(project(":micronaut-camunda-bpm-feature"))
+
+    // imported to enable http endpoint for metrics
+    implementation("io.micronaut:micronaut-management")
+
+
+    // imported to activate metrics
+    // comes also with micronaut-micrometer-registry-prometheus, it's here just to make the example more verbose
+    implementation("io.micronaut.micrometer:micronaut-micrometer-core")
+
+    // just added to export metrics to prometheus, start it via docker-compose
+    implementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
+
     runtimeOnly("com.h2database:h2")
     runtimeOnly("ch.qos.logback:logback-classic")
 
