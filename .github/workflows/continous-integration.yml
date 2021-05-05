@@ -41,3 +41,33 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build with Gradle Wrapper
         run: ./gradlew build --warning-mode=fail -Pmicronaut.runtime=${{ matrix.runtime }}
+
+  spotbugs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Cache Dependencies #see https://github.com/actions/cache/blob/master/examples.md#java---gradle
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-spotbugs-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-spotbugs-gradle-
+      - name: Spotbugs Checks
+        id: spotbugs_checks
+        # ignoreFailures set to true so that the xmlReport can parsed and uploaded by next step otherwise this step will fail and the findings are not visible
+        # xmlReport set to true so that the next step can parse the xml and upload the findings
+        run: ./gradlew spotbugsMain -Pspotbugs.spotbugsMainEnabled=true -Pspotbugs.xmlReport=true
+      - name: Publish Spotbugs Results
+        # TODO switch to original GHA when PR jwgmeligmeyling/spotbugs-github-action#10 is integrated
+        uses: arolfes/spotbugs-github-action@master
+        with:
+          path: '**/spotbugs/main.xml'
+          name: 'Spotbugs Checks'
+          title: 'Spotbugs Check Results'
+          threshold: 0 # apply zero-warning policy

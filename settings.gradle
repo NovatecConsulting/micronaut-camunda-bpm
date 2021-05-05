@@ -6,6 +6,7 @@ pluginManagement {
         id("com.github.johnrengelman.shadow") version "$shadowJarVersion"
         id("io.micronaut.application") version "$micronautApplicationPluginVersion"
         id("io.micronaut.library") version "$micronautLibraryPluginVersion"
+        id("com.github.spotbugs") version "$spotbugsVersion"
     }
 }
 

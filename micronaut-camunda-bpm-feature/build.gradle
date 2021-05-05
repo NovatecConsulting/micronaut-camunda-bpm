@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen")
     id("maven-publish")
     id("signing")
+    id("com.github.spotbugs")
 }
 
 group = "info.novatec"
@@ -131,4 +132,33 @@ signing {
 
 configurations {
     testArtifacts
+}
+
+// per default spotbugs is disabled
+// in CI the property spotbugs.spotbugsMainEnabled is passed to gradle to enable spotbugs
+spotbugsMain.enabled = project.hasProperty('spotbugs.spotbugsMainEnabled') ? project.getProperty('spotbugs.spotbugsMainEnabled') == 'true' : false
+
+// disable spotbugs for Tests
+spotbugsTest.enabled = false
+
+spotbugs {
+    ignoreFailures = true
+    effort = com.github.spotbugs.snom.Effort.MAX
+    excludeFilter = file("${projectDir}/config/spotbugs/exclude.xml")
+}
+
+// When spotbugs is executed locally, it will produce a nice HTML report
+// When spotbugs is executed in "continous integration" it will generate XML that can be parsed and uploaded to PR
+boolean xmlReport = project.hasProperty('spotbugs.xmlReport') ? project.getProperty('spotbugs.xmlReport') == 'true' : false
+spotbugsMain {
+    reports {
+        xml {
+            enabled = xmlReport
+        }
+        html {
+            enabled = !xmlReport
+            destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+    }
 }
