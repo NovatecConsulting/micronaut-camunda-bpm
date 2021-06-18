@@ -15,7 +15,7 @@
  */
 package info.novatec.micronaut.camunda.bpm.feature.tx;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.transaction.SynchronousTransactionManager;
 import io.micronaut.transaction.support.TransactionSynchronization;
 import io.micronaut.transaction.support.TransactionSynchronizationAdapter;
