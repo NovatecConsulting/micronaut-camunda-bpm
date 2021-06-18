@@ -16,10 +16,10 @@
 package info.novatec.micronaut.camunda.bpm.feature.test
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.camunda.bpm.engine.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
 
 @MicronautTest
 class CamundaServicesFactoryTest {

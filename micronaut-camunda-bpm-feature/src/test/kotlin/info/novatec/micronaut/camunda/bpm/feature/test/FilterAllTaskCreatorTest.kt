@@ -19,12 +19,12 @@ import info.novatec.micronaut.camunda.bpm.feature.Configuration
 import info.novatec.micronaut.camunda.bpm.feature.FilterAllTaskCreator
 import io.micronaut.context.annotation.Property
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.camunda.bpm.engine.ProcessEngine
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Tests for [FilterAllTaskCreator].

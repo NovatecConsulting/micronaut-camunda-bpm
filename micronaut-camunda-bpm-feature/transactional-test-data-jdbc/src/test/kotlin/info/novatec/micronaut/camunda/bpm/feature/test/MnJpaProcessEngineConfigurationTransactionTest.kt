@@ -16,14 +16,14 @@
 package info.novatec.micronaut.camunda.bpm.feature.test
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.JavaDelegate
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Executes the inherited tests with a JPA configuration. [PersistBookDelegate] replaces [DoNothingDelegate] and persists entities.

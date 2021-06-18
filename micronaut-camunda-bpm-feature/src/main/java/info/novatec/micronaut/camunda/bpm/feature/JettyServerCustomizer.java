@@ -19,6 +19,7 @@ import info.novatec.micronaut.camunda.bpm.feature.rest.RestApp;
 import info.novatec.micronaut.camunda.bpm.feature.webapp.*;
 import io.micronaut.context.event.BeanCreatedEvent;
 import io.micronaut.context.event.BeanCreatedEventListener;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.admin.impl.web.bootstrap.AdminContainerBootstrap;
 import org.camunda.bpm.cockpit.impl.web.bootstrap.CockpitContainerBootstrap;
 import org.camunda.bpm.engine.rest.security.auth.ProcessEngineAuthenticationFilter;
@@ -44,7 +45,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import javax.servlet.*;
 import java.util.EnumSet;
 import java.util.HashMap;

@@ -15,9 +15,9 @@
  */
 package info.novatec.micronaut.camunda.bpm.feature;
 
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.ProcessEngine;
 
-import javax.inject.Singleton;
 import java.util.Optional;
 
 /**

@@ -133,3 +133,7 @@ signing {
 configurations {
     testArtifacts
 }
+
+kapt {
+    correctErrorTypes = true
+}

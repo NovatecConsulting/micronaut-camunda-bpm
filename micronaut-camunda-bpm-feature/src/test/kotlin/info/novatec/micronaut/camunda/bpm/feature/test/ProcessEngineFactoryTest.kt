@@ -16,14 +16,15 @@
 package info.novatec.micronaut.camunda.bpm.feature.test
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.camunda.bpm.engine.ProcessEngine
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
 
 @MicronautTest
 class ProcessEngineFactoryTest {
+
     @Inject
     lateinit var processEngine: ProcessEngine
 

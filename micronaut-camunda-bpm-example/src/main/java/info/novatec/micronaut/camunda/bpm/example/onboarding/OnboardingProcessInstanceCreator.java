@@ -19,9 +19,8 @@ import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.RuntimeService;
-
-import javax.inject.Singleton;
 
 @Singleton
 public class OnboardingProcessInstanceCreator implements ApplicationEventListener<ServerStartupEvent> {

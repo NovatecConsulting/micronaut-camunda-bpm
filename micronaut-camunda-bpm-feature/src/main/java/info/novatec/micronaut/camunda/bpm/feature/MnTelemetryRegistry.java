@@ -15,12 +15,12 @@
  */
 package info.novatec.micronaut.camunda.bpm.feature;
 
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.impl.telemetry.TelemetryRegistry;
 import org.camunda.bpm.engine.impl.telemetry.dto.ApplicationServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import java.util.Optional;
 
 /**

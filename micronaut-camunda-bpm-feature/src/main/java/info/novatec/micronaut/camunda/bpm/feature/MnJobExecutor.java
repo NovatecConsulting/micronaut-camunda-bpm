@@ -16,13 +16,14 @@
 package info.novatec.micronaut.camunda.bpm.feature;
 
 import io.micronaut.scheduling.TaskExecutors;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import org.camunda.bpm.engine.impl.ProcessEngineImpl;
+import org.camunda.bpm.engine.impl.jobexecutor.JobExecutor;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import org.camunda.bpm.engine.impl.ProcessEngineImpl;
-import org.camunda.bpm.engine.impl.jobexecutor.JobExecutor;
 
 /**
  * Micronaut specific implementation of the {@link org.camunda.bpm.engine.impl.jobexecutor.JobExecutor}

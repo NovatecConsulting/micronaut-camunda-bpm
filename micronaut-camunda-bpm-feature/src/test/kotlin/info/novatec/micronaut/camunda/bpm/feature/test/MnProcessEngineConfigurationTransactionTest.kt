@@ -19,6 +19,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.transaction.SynchronousTransactionManager
 import io.micronaut.transaction.TransactionCallback
 import io.micronaut.transaction.TransactionStatus
+import jakarta.inject.Inject
 import org.camunda.bpm.engine.HistoryService
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
@@ -28,7 +29,6 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.sql.Connection
-import javax.inject.Inject
 
 /**
  * Executes the inherited tests with a transaction manager.

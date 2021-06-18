@@ -15,12 +15,12 @@
  */
 package info.novatec.micronaut.camunda.bpm.example.onboarding;
 
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Singleton

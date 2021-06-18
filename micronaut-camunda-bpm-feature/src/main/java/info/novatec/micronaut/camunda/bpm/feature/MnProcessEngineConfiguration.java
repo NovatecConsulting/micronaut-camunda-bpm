@@ -24,6 +24,7 @@ import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.beans.BeanProperty;
 import io.micronaut.jdbc.BasicJdbcConfiguration;
 import io.micronaut.transaction.SynchronousTransactionManager;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,7 +33,6 @@ import org.camunda.bpm.engine.impl.interceptor.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.time.Instant;

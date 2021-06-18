@@ -21,12 +21,12 @@ import io.micronaut.core.annotation.AnnotationValue;
 import io.micronaut.core.naming.NameResolver;
 import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.qualifiers.Qualifiers;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.delegate.VariableScope;
 import org.camunda.bpm.engine.impl.scripting.engine.Resolver;
 import org.camunda.bpm.engine.impl.scripting.engine.ResolverFactory;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
