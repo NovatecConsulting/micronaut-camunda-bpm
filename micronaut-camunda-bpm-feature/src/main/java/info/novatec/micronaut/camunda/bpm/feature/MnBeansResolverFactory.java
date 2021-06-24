@@ -17,11 +17,11 @@ package info.novatec.micronaut.camunda.bpm.feature;
 
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.Qualifier;
+import io.micronaut.core.annotation.AnnotationUtil;
 import io.micronaut.core.annotation.AnnotationValue;
 import io.micronaut.core.naming.NameResolver;
 import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.qualifiers.Qualifiers;
-import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.delegate.VariableScope;
 import org.camunda.bpm.engine.impl.scripting.engine.Resolver;
@@ -87,7 +87,7 @@ public class MnBeansResolverFactory implements ResolverFactory, Resolver {
     protected String getBeanName(BeanDefinition<?> beanDefinition) {
         // Inspired by NameQualifier.reduce()..
         Optional<String> beanQualifier = beanDefinition.getAnnotationMetadata()
-                .findDeclaredAnnotation(Named.class)
+                .findDeclaredAnnotation(AnnotationUtil.NAMED)
                 .flatMap(AnnotationValue::stringValue);
         return beanQualifier.orElseGet(() -> {
             if (beanDefinition instanceof NameResolver) {
