@@ -18,12 +18,12 @@ package info.novatec.micronaut.camunda.bpm.feature.test
 import info.novatec.micronaut.camunda.bpm.feature.ProcessEngineFactory
 import io.micronaut.context.annotation.Property
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.repository.Deployment
 import org.camunda.bpm.engine.repository.ProcessDefinition
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
 
 @MicronautTest
 @Property(name="camunda.locations", value="classpath:.,classpath:bpm")

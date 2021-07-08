@@ -20,6 +20,7 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
 import io.micronaut.transaction.SynchronousTransactionManager;
+import jakarta.inject.Singleton;
 import org.apache.ibatis.transaction.jdbc.JdbcTransaction;
 import org.camunda.bpm.cockpit.Cockpit;
 import org.camunda.bpm.cockpit.CockpitRuntimeDelegate;
@@ -29,7 +30,6 @@ import org.camunda.bpm.engine.impl.interceptor.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import java.sql.Connection;
 
 /**

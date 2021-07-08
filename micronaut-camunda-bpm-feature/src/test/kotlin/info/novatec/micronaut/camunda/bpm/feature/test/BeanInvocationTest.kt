@@ -16,6 +16,8 @@
 package info.novatec.micronaut.camunda.bpm.feature.test
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
+import jakarta.inject.Named
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
@@ -24,9 +26,8 @@ import org.camunda.bpm.model.bpmn.Bpmn
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
-import javax.inject.Inject
-import javax.inject.Named
+import org.mockito.Mockito.reset
+import org.mockito.Mockito.verify
 
 @MicronautTest
 class BeanInvocationTest {

@@ -18,11 +18,11 @@ package info.novatec.micronaut.camunda.bpm.feature.test
 import info.novatec.micronaut.camunda.bpm.feature.MnProcessEngineConfiguration
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
-import javax.inject.Inject
 
 /**
  * @author Martin Sawilla

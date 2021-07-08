@@ -24,11 +24,11 @@ import io.micronaut.servlet.jetty.JettyServer;
 import io.micronaut.servlet.tomcat.TomcatServer;
 import io.micronaut.servlet.undertow.UndertowServer;
 import io.undertow.Version;
+import jakarta.inject.Singleton;
 import org.apache.catalina.util.ServerInfo;
 import org.camunda.bpm.engine.impl.telemetry.dto.ApplicationServer;
 import org.eclipse.jetty.util.Jetty;
 
-import javax.inject.Singleton;
 import java.util.Map;
 import java.util.Optional;
 

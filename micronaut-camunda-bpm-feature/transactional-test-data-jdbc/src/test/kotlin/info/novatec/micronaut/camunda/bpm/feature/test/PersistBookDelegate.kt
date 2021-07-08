@@ -16,10 +16,10 @@
 package info.novatec.micronaut.camunda.bpm.feature.test
 
 import io.micronaut.context.annotation.Replaces
+import jakarta.inject.Named
+import jakarta.inject.Singleton
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.JavaDelegate
-import javax.inject.Named
-import javax.inject.Singleton
 
 /**
  * [JavaDelegate] which replaces the [DoNothingDelegate] and included the persistence of an entity.

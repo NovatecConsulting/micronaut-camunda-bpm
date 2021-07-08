@@ -15,10 +15,10 @@
  */
 package info.novatec.micronaut.camunda.bpm.feature.test
 
+import jakarta.inject.Named
+import jakarta.inject.Singleton
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.JavaDelegate
-import javax.inject.Named
-import javax.inject.Singleton
 
 /**
  * [JavaDelegate] which doesn't do anything. This implementation may be replaced in other tests.

@@ -18,11 +18,11 @@ package info.novatec.micronaut.camunda.bpm.feature;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.ManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import java.net.URL;
 import java.util.Scanner;
 

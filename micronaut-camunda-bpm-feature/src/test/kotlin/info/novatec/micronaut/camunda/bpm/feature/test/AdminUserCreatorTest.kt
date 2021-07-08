@@ -22,6 +22,7 @@ import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.runtime.server.event.ServerStartupEvent
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
+import jakarta.inject.Inject
 import org.camunda.bpm.engine.ProcessEngine
 import org.camunda.bpm.engine.authorization.Authorization.ANY
 import org.camunda.bpm.engine.authorization.Groups.CAMUNDA_ADMIN
@@ -34,7 +35,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.mockito.Mockito.mock
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Tests for [info.novatec.micronaut.camunda.bpm.feature.AdminUserCreator]

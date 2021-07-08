@@ -16,9 +16,8 @@
 package info.novatec.micronaut.camunda.bpm.feature;
 
 import io.micronaut.context.annotation.Factory;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.*;
-
-import javax.inject.Singleton;
 
 /**
  * This factory provides all Camunda Services based on the current @{@link ProcessEngine}.

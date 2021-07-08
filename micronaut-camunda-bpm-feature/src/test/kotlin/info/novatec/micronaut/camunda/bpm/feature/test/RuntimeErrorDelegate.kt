@@ -15,9 +15,9 @@
  */
 package info.novatec.micronaut.camunda.bpm.feature.test
 
+import jakarta.inject.Singleton
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.JavaDelegate
-import javax.inject.Singleton
 
 /**
  * [JavaDelegate] which throws a [RuntimeException].

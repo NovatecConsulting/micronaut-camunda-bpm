@@ -20,6 +20,7 @@ import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
 import io.micronaut.transaction.SynchronousTransactionManager;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.AuthorizationService;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.authorization.Resource;
@@ -30,7 +31,6 @@ import org.camunda.bpm.engine.impl.persistence.entity.AuthorizationEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import java.sql.Connection;
 
 import static org.camunda.bpm.engine.authorization.Authorization.ANY;

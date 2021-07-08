@@ -18,12 +18,11 @@ package info.novatec.micronaut.camunda.bpm.feature;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
+import jakarta.inject.Singleton;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.filter.Filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Singleton;
 
 /**
  * Create a simple "show all" filter if {@code camunda.filter.create} property is present.

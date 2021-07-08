@@ -20,10 +20,9 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
 import io.micronaut.servlet.jetty.JettyServer;
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Singleton;
 
 /**
  * Log a warning if Webapps or REST are enabled but not supported on the current server runtime.

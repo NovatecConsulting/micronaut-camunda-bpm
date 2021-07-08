@@ -17,7 +17,7 @@ package info.novatec.micronaut.camunda.bpm.feature.test
 
 import info.novatec.micronaut.camunda.bpm.feature.CamundaVersion
 import io.micronaut.context.annotation.Replaces
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 /**
  * @author Martin Sawilla
